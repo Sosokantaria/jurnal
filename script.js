@@ -26,7 +26,7 @@ addDays.addEventListener("click", () => {
     tdItem.innerHTML = "0";
     tdItem.id = counter;
     counter++;
-    tdItem.className = "td-child";
+    tdItem.classList.add( "td-child") 
     tdParent.appendChild(tdItem);
   });
   dateCount++;
@@ -38,15 +38,17 @@ addDays.addEventListener("click", () => {
 
 tdParent.forEach((clickedTd) => {
   clickedTd.addEventListener("click", (event) => {
-    if (event.target.className === "td-child") {
+    if (event.target.classList.contains( "td-child")) {
       const tdInput = prompt();
-      if (tdInput !== "") {
+      if (tdInput !== "" && tdInput !== null) {
         if (tdInput >= 0 && tdInput <= 5) {
           event.target.innerHTML = tdInput;
           event.target.style.backgroundColor = "green";
+          event.target.classList.add("active")
         } else if (5 <= tdInput && tdInput <= 100) {
           event.target.innerHTML = 5;
           event.target.style.backgroundColor = "green";
+          event.target.classList.add("active")
         } else if (tdInput > 100) {
           event.target.innerHTML = 0;
           return alert("enter smoler number");
@@ -82,12 +84,8 @@ function calcTotalDays() {
 function calcMissedLessons() {
   let missedLess = 0;
   const allTdEllement = document.querySelectorAll(".td-child");
-  allTdEllement.forEach((td) => {
-    if ((td.className = "td-child")) {
-      missedLess++;
-    }
-  });
-  missedLessons.innerHTML = missedLess;
+  const allActiveEllements=document.querySelectorAll(".active")
+  missedLessons.innerHTML = allTdEllement.length-allActiveEllements.length;
 }
 
 function calcAverageMark() {
@@ -109,17 +107,17 @@ function calcAverage() {
   let sumOfTdRows = 0;
   let index = 0;
   while (index < bottomAverages.length) {
-    for (let i =0; i < totalDaysArrayLength ; i++) {
-      sumOfTdRows += Number(table.rows[index + 1].cells[i+2].innerHTML);
+    for (let i = 0; i < totalDaysArrayLength; i++) {
+      sumOfTdRows += Number(table.rows[index + 1].cells[i + 2].innerHTML);
       bottomAverages[index].innerHTML = sumOfTdRows / totalDaysArrayLength;
     }
     sumOfTdRows = 0;
     index++;
   }
-  if(totalDaysArrayLength===0){
-    bottomAverages.forEach(averege=>{
-      averege.innerHTML="0.00"
-    })
+  if (totalDaysArrayLength === 0) {
+    bottomAverages.forEach((averege) => {
+      averege.innerHTML = "0.00";
+    });
   }
 }
 
@@ -144,11 +142,7 @@ function addDate(startDate = new Date("2022-12-05"), num) {
   let i = 0;
   while (i < num) {
     const dayOfWeek = currentDate.getDay();
-    if (
-      dayOfWeek === 1 ||
-      dayOfWeek === 3 ||
-      dayOfWeek === 5
-    ) {
+    if (dayOfWeek === 1 || dayOfWeek === 3 || dayOfWeek === 5) {
       result.push([
         weekday[currentDate.getDay()],
         currentDate.getDate(),
