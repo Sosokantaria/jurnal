@@ -95,7 +95,7 @@ function calcAverageMark() {
     allTdEllement.forEach((tdchild) => {
       tdEllementsSum += Number(tdchild.innerHTML);
     });
-    averageMark.innerHTML = tdEllementsSum / allTdEllement.length;
+    averageMark.innerHTML = (tdEllementsSum / allTdEllement.length).toFixed(2);
   }
   if (totalDaysArrayLength === 0) {
     averageMark.innerHTML = 0;
@@ -109,7 +109,7 @@ function calcAverage() {
   while (index < bottomAverages.length) {
     for (let i = 0; i < totalDaysArrayLength; i++) {
       sumOfTdRows += Number(table.rows[index + 1].cells[i + 2].innerHTML);
-      bottomAverages[index].innerHTML = sumOfTdRows / totalDaysArrayLength;
+      bottomAverages[index].innerHTML = (sumOfTdRows / totalDaysArrayLength).toFixed(2);
     }
     sumOfTdRows = 0;
     index++;
